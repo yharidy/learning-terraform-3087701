@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "blog_everything_out" {
 
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.amazon_linux.id
-  instance_type = "t3.nano"
+  instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.blog.id]
   tags = {
     Name = "HelloWorld"
