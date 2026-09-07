@@ -6,7 +6,7 @@ resource "aws_security_group" "blog" {
   name = "blog"
   description = "Allow http and hhttps in. Everything out"
 
-  cpv_id = data.aws_vpc.default.cpv_id
+  vpc = data.aws_vpc.default.vpc_id
 }
 
 resource "aws_security_group_rule" "blog_http_in" {
