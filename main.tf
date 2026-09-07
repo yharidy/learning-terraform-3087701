@@ -6,7 +6,7 @@ resource "aws_security_group" "blog" {
   name = "blog"
   description = "Allow http and hhttps in. Everything out"
 
-  vpc = data.aws_vpc.default.vpc_id
+  vpc_id = data.aws_vpc.default.vpc_id
 }
 
 resource "aws_security_group_rule" "blog_http_in" {
@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "blog_everything_out" {
 resource "aws_instance" "blog" {
   ami           = "ami-0b79f6f294a030f24"
   instance_type = "t3.nano"
-  vpc_security_group_id = [aws_security_group.blog.id]
+  vpc_security_group_ids = [aws_security_group.blog.id]
   tags = {
     Name = "HelloWorld"
   }
