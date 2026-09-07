@@ -1,3 +1,18 @@
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 data "aws_vpc" "default" {
   default = true
 }
@@ -40,7 +55,7 @@ resource "aws_security_group_rule" "blog_everything_out" {
 }
 
 resource "aws_instance" "blog" {
-  ami           = "ami-0b79f6f294a030f24"
+  ami           = data.aws_ami.amazon_linux.id
   instance_type = "t3.nano"
   vpc_security_group_ids = [aws_security_group.blog.id]
   tags = {
